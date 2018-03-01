@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,14 +16,25 @@ namespace HashCode {
             Console.ReadKey();
         }
 
+        private static int T;
+        private static List<Ride> rides = new List<Ride>();
+        private static List<Vehicle> cars = new List<Vehicle>();
+
         private static void Calculate()
         {
-            /*
-                for(int i = 0; i < T; i++)
+            for (int i = 0; i < T; i++)
+            {
+                foreach (var car in cars)
                 {
-                    
+                    if (!car.IsBusy && rides.Count > 0)
+                    {
+                        rides.Sort((a,b)=>a.Length.CompareTo(b.Length));
+                        var r = rides[0];
+                        rides.Remove(r);
+                        car.SetNewRide(r,5);
+                    }
                 }
-            */
+            }
         }
 
         static Corner[,] CreateMap(int row, int column) {
@@ -34,7 +46,7 @@ namespace HashCode {
             }
             return roadMap;
         }
-        private static void CreateTrip() {
+        private static void CreateVehicles() {
             FirstLine firstLine = null;
             List<Ride> rides = new List<Ride>();
             List<string> linesFromFile = ReadFromFile().AsEnumerable().ToList();
@@ -50,20 +62,16 @@ namespace HashCode {
 
                 for (int i = 0; i < firstLine.Rides; i++) {
                     string[] ride = linesFromFile.First().Split(' ');
-                    rides.Add(ProcessRide(ride));
-                    linesFromFile.RemoveAt(counter);
-                    counter++;
                 }
             }
 
         }
         private static Ride ProcessRide(string[] ride) {
-            return new Ride() {
-                Start = new Corner() { Row =Int32.Parse(ride[0]), Column = Int32.Parse(ride[1])},
-                Stop = new Corner() { Row = Int32.Parse(ride[2]), Column = Int32.Parse(ride[3])},
-                Earliest = Int32.Parse(ride[4]),
-                Latest = Int32.Parse(ride[5])
-            };
+            for(int i = 0; i < ride.Length; i++) {
+                if(i+2 == ride.Length) {
+                    
+                }
+            }
         }
         private static FirstLine ProcessFirstLine(string[] firstLine) {
             return new FirstLine() {
@@ -80,7 +88,6 @@ namespace HashCode {
             foreach (var line in lines) {
                 Console.WriteLine(line);
             }
-            return lines;
         }
 
 

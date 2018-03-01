@@ -12,6 +12,6 @@ namespace HashCode {
         public int Earliest { get; set; }
         public int Latest { get; set; }
 
-
+        public int Length => (Math.Abs(Start.Row - Stop.Row) + Math.Abs(Start.Column - Stop.Column));
     }
 }
