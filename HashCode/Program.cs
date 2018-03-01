@@ -9,30 +9,38 @@ using System.Threading.Tasks;
 
 namespace HashCode {
     public class Program {
+
+        private static Trip trip;
+        private static List<Vehicle> cars = new List<Vehicle>();
+
         static void Main(string[] args) {
-            var trip = CreateTrip();
+            trip = CreateTrip();
             foreach (var tripRide in trip.Rides) {
                 Console.WriteLine($"{tripRide.Earliest} {tripRide.Latest} [{tripRide.Start.Row}, {tripRide.Start.Column}] [{tripRide.Stop.Row}, {tripRide.Stop.Column}]");
             }
             Console.ReadKey();
         }
 
-        private static int T;
-        private static List<Ride> rides = new List<Ride>();
-        private static List<Vehicle> cars = new List<Vehicle>();
-
         private static void Calculate()
         {
-            for (int i = 0; i < T; i++)
+            for (int i = 0; i < trip.FirstLine.Vehicles; i++)
+            {
+                Vehicle car = new Vehicle() { ID = i, IsBusy = false };
+                cars.Add(car);
+            }
+
+
+
+            for (int i = 0; i < trip.FirstLine.Steps; i++)
             {
                 foreach (var car in cars)
                 {
-                    if (!car.IsBusy && rides.Count > 0)
+                    if (!car.IsBusy && trip.Rides.Count > 0)
                     {
-                        rides.Sort((a,b)=>a.Length.CompareTo(b.Length));
-                        var r = rides[0];
-                        rides.Remove(r);
-                        car.SetNewRide(r,5);
+                        trip.Rides.Sort((a,b)=>a.Length.CompareTo(b.Length));
+                        var r = trip.Rides[0];
+                        trip.Rides.Remove(r);
+                        car.SetNewRide(r);
                     }
                 }
             }
