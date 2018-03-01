@@ -18,6 +18,7 @@ namespace HashCode {
             foreach (var tripRide in trip.Rides) {
                 Console.WriteLine($"{tripRide.Earliest} {tripRide.Latest} [{tripRide.Start.Row}, {tripRide.Start.Column}] [{tripRide.Stop.Row}, {tripRide.Stop.Column}]");
             }
+            Calculate();
             Console.ReadKey();
         }
 
@@ -28,8 +29,6 @@ namespace HashCode {
                 Vehicle car = new Vehicle() { ID = i, IsBusy = false };
                 cars.Add(car);
             }
-
-
 
             for (int i = 0; i < trip.FirstLine.Steps; i++)
             {
