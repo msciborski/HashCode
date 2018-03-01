@@ -10,7 +10,9 @@ namespace HashCode {
     public class Program {
         static void Main(string[] args) {
             var trip = CreateTrip();
-            ReadFromFile();
+            foreach (var tripRide in trip.Rides) {
+                Console.WriteLine($"{tripRide.Earliest} {tripRide.Latest} [{tripRide.Start.Row}, {tripRide.Start.Column}] [{tripRide.Stop.Row}, {tripRide.Stop.Column}]");
+            }
             Console.ReadKey();
         }
 
@@ -41,16 +43,16 @@ namespace HashCode {
 
             List<string> linesFromFile = ReadFromFile().AsEnumerable().ToList();
 
-            int counter = 0;
-            foreach (var line in linesFromFile) {
-                
-                if (counter == 0) {
-                    string[] firstLineSplited = linesFromFile.First().Split(' ');
+            for(int i = 0; i < linesFromFile.Count; i++) {
+
+                if (i == 0) {
+                    string[] firstLineSplited = linesFromFile[i].Split(' ');
                     trip.FirstLine = ProcessFirstLine(firstLineSplited);
-                    counter++;
+                } else {
+                    string[] ride = linesFromFile[i].Split(' ');
+                    rides.Add(ProcessRide(ride));
                 }
-                string[] ride = linesFromFile[counter].Split(' ');
-                rides.Add(ProcessRide(ride));
+
             }
             trip.Rides = rides;
             trip.Map = CreateMap(trip.FirstLine.Rows, trip.FirstLine.Columns);
