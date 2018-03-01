@@ -26,7 +26,7 @@ namespace HashCode {
         {
             for (int i = 0; i < trip.FirstLine.Vehicles; i++)
             {
-                Vehicle car = new Vehicle() { ID = i, IsBusy = false };
+                Vehicle car = new Vehicle() { ID = i, IsBusy = false, CurrentPosition = new Corner()};
                 cars.Add(car);
             }
 
@@ -38,10 +38,21 @@ namespace HashCode {
                     {
                         trip.Rides.Sort((a,b)=>a.Length.CompareTo(b.Length));
                         var r = trip.Rides[0];
-                        trip.Rides.Remove(r);
                         car.SetNewRide(r);
+                        trip.Rides.Remove(r);
                     }
+                    car.CheckForDoneRide();
                 }
+            }
+
+            foreach (var car in cars)
+            {
+                Console.Write($"{car.ID} ");
+                foreach (var ride in car.Rides)
+                {
+                    Console.Write(ride.ID);
+                }
+                Console.WriteLine();
             }
         }
 

@@ -18,11 +18,9 @@ namespace HashCode
         public void SetNewRide(Ride newRide)
         {
             ride = newRide;
-            remainingRoad = ride.Length + Distance;
+            remainingRoad = ride.Length + (Math.Abs(CurrentPosition.Row - ride.Start.Row) + Math.Abs(CurrentPosition.Column - ride.Start.Column));
             IsBusy = true;
         }
-
-        public int Distance => (Math.Abs(CurrentPosition.Row - ride.Start.Row) + Math.Abs(CurrentPosition.Column - ride.Start.Column));
 
         public void CheckForDoneRide()
         {
