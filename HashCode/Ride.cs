@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace HashCode {
     public class Ride {
+        public int ID { get; set; }
         public Corner Start { get; set; }
         public Corner Stop { get; set; }
         public int Earliest { get; set; }

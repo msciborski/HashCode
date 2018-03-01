@@ -34,7 +34,7 @@ namespace HashCode {
             }
             return roadMap;
         }
-        private static void Create() {
+        private static void CreateTrip() {
             FirstLine firstLine = null;
             List<Ride> rides = new List<Ride>();
             List<string> linesFromFile = ReadFromFile().AsEnumerable().ToList();
