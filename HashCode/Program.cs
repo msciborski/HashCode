@@ -99,7 +99,7 @@ namespace HashCode {
             };
         }
         private static string[] ReadFromFile() {
-            string[] lines = File.ReadAllLines("C:\\Users\\mscib\\source\\repos\\HashCode\\a_example.in");
+            string[] lines = File.ReadAllLines("a_example.in");
             foreach (var line in lines) {
                 Console.WriteLine(line);
             }
