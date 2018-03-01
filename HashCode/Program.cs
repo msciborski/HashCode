@@ -14,6 +14,17 @@ namespace HashCode {
             ReadFromFile();
             Console.ReadKey();
         }
+
+        private static void Calculate()
+        {
+            /*
+                for(int i = 0; i < T; i++)
+                {
+                    
+                }
+            */
+        }
+
         static Corner[,] CreateMap(int row, int column) {
             var roadMap = new Corner[row, column];
            
@@ -72,5 +83,11 @@ namespace HashCode {
             return lines;
         }
 
+
+
+        private static int PathLength(Corner begin, Corner end)
+        {
+            return (Math.Abs(begin.Row - end.Row) + Math.Abs(begin.Column - end.Column));
+        }
     }
 }
