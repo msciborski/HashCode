@@ -82,11 +82,12 @@ namespace HashCode {
         }
 
         private static Ride ProcessRide(string[] ride) {
-            for(int i = 0; i < ride.Length; i++) {
-                if(i+2 == ride.Length) {
-                    
-                }
-            }
+            return new Ride() {
+                Start = new Corner() { Row = Int32.Parse(ride[0]), Column = Int32.Parse(ride[1])},
+                Stop = new Corner() { Row = Int32.Parse(ride[2]), Column = Int32.Parse(ride[3])},
+                Earliest = Int32.Parse(ride[4]),
+                Latest = Int32.Parse(ride[5])
+            };
         }
         private static FirstLine ProcessFirstLine(string[] firstLine) {
             return new FirstLine() {
