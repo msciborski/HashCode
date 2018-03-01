@@ -70,9 +70,7 @@ namespace HashCode {
                     trip.FirstLine = ProcessFirstLine(firstLineSplited);
                 } else {
                     string[] ride = linesFromFile[i].Split(' ');
-                    var processedRide = ProcessRide(ride);
-                    processedRide.ID = i;
-                    rides.Add(processedRide);
+                    rides.Add(ProcessRide(ride));
                 }
 
             }
