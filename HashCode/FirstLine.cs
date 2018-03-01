@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace HashCode {
-    class FirstLine {
+    public class FirstLine {
         public int Rows { get; set; }
         public int Columns { get; set; }
         public int Vehicles { get; set; }

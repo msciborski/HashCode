@@ -10,9 +10,10 @@ using System.Threading.Tasks;
 namespace HashCode {
     public class Program {
         static void Main(string[] args) {
-            var roadMap = CreateMap(5, 6);
-
-            ReadFromFile();
+            var trip = CreateTrip();
+            foreach (var tripRide in trip.Rides) {
+                Console.WriteLine($"{tripRide.Earliest} {tripRide.Latest} [{tripRide.Start.Row}, {tripRide.Start.Column}] [{tripRide.Stop.Row}, {tripRide.Stop.Column}]");
+            }
             Console.ReadKey();
         }
 
@@ -46,26 +47,30 @@ namespace HashCode {
             }
             return roadMap;
         }
-        private static void CreateVehicles() {
+        private static Trip CreateTrip() {
+            Trip trip = new Trip();
             FirstLine firstLine = null;
             List<Ride> rides = new List<Ride>();
+            List<Trip> trips = new List<Trip>();
+
             List<string> linesFromFile = ReadFromFile().AsEnumerable().ToList();
 
-            int counter = 0;
-            while (linesFromFile.Count != 0) {
-                string[] firstLineSplited = linesFromFile.First().Split(' ');
-                linesFromFile.RemoveAt(0);
+            for(int i = 0; i < linesFromFile.Count; i++) {
 
-                counter++;
-
-                firstLine = ProcessFirstLine(firstLineSplited);
-
-                for (int i = 0; i < firstLine.Rides; i++) {
-                    string[] ride = linesFromFile.First().Split(' ');
+                if (i == 0) {
+                    string[] firstLineSplited = linesFromFile[i].Split(' ');
+                    trip.FirstLine = ProcessFirstLine(firstLineSplited);
+                } else {
+                    string[] ride = linesFromFile[i].Split(' ');
+                    rides.Add(ProcessRide(ride));
                 }
-            }
 
+            }
+            trip.Rides = rides;
+            trip.Map = CreateMap(trip.FirstLine.Rows, trip.FirstLine.Columns);
+            return trip;
         }
+
         private static Ride ProcessRide(string[] ride) {
             for(int i = 0; i < ride.Length; i++) {
                 if(i+2 == ride.Length) {
