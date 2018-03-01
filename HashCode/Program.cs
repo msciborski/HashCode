@@ -17,10 +17,6 @@ namespace HashCode {
             Console.ReadKey();
         }
 
-        private static int T;
-        private static List<Ride> rides = new List<Ride>();
-        private static List<Vehicle> cars = new List<Vehicle>();
-
         private static void Calculate()
         {
             for (int i = 0; i < T; i++)
@@ -62,7 +58,9 @@ namespace HashCode {
                     trip.FirstLine = ProcessFirstLine(firstLineSplited);
                 } else {
                     string[] ride = linesFromFile[i].Split(' ');
-                    rides.Add(ProcessRide(ride));
+                    var processedRide = ProcessRide(ride);
+                    processedRide.ID = i;
+                    rides.Add(processedRide);
                 }
 
             }
