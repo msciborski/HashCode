@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 namespace HashCode {
     public class Program {
         static void Main(string[] args) {
-            var roadMap = CreateMap(5, 6);
-
+            var trip = CreateTrip();
             ReadFromFile();
             Console.ReadKey();
         }
@@ -34,29 +33,30 @@ namespace HashCode {
             }
             return roadMap;
         }
-        private static void CreateTrip() {
+        private static Trip CreateTrip() {
+            Trip trip = new Trip();
             FirstLine firstLine = null;
             List<Ride> rides = new List<Ride>();
+            List<Trip> trips = new List<Trip>();
+
             List<string> linesFromFile = ReadFromFile().AsEnumerable().ToList();
 
             int counter = 0;
-            while (linesFromFile.Count != 0) {
-                string[] firstLineSplited = linesFromFile.First().Split(' ');
-                linesFromFile.RemoveAt(0);
-
-                counter++;
-
-                firstLine = ProcessFirstLine(firstLineSplited);
-
-                for (int i = 0; i < firstLine.Rides; i++) {
-                    string[] ride = linesFromFile.First().Split(' ');
-                    rides.Add(ProcessRide(ride));
-                    linesFromFile.RemoveAt(counter);
+            foreach (var line in linesFromFile) {
+                
+                if (counter == 0) {
+                    string[] firstLineSplited = linesFromFile.First().Split(' ');
+                    trip.FirstLine = ProcessFirstLine(firstLineSplited);
                     counter++;
                 }
+                string[] ride = linesFromFile[counter].Split(' ');
+                rides.Add(ProcessRide(ride));
             }
-
+            trip.Rides = rides;
+            trip.Map = CreateMap(trip.FirstLine.Rows, trip.FirstLine.Columns);
+            return trip;
         }
+
         private static Ride ProcessRide(string[] ride) {
             return new Ride() {
                 Start = new Corner() { Row =Int32.Parse(ride[0]), Column = Int32.Parse(ride[1])},
