@@ -104,6 +104,8 @@ namespace HashCode {
             foreach (var line in lines) {
                 Console.WriteLine(line);
             }
+
+            return lines;
         }
 
 
