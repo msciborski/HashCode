@@ -45,5 +45,11 @@ namespace HashCode {
             }
         }
 
+
+
+        private static int PathLength(Corner begin, Corner end)
+        {
+            return (Math.Abs(begin.Row - end.Row) + Math.Abs(begin.Column - end.Column));
+        }
     }
 }
